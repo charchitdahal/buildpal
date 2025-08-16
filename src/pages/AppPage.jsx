@@ -5,7 +5,23 @@ import { useAuth } from '../contexts/AuthContext'
 const AppPage = () => {
   const { user, signOut } = useAuth()
   const [inputValue, setInputValue] = useState('')
-  const [generatedApps, setGeneratedApps] = useState([])
+  const [generatedApps, setGeneratedApps] = useState([
+    // Sample apps for demonstration
+    {
+      id: 1,
+      name: 'Sales Dashboard',
+      status: 'Ready',
+      createdAt: '2 days ago',
+      url: 'https://sales-dashboard.vercel.app'
+    },
+    {
+      id: 2,
+      name: 'Task Manager',
+      status: 'Ready',
+      createdAt: '1 week ago',
+      url: 'https://task-manager.vercel.app'
+    }
+  ])
 
   const handleSignOut = async () => {
     await signOut()
@@ -112,8 +128,8 @@ const AppPage = () => {
                       {app.name}
                     </h3>
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${app.status === 'Ready'
-                        ? 'bg-green-100 text-green-800'
-                        : 'bg-yellow-100 text-yellow-800'
+                      ? 'bg-green-100 text-green-800'
+                      : 'bg-yellow-100 text-yellow-800'
                       }`}>
                       {app.status}
                     </span>
@@ -123,17 +139,12 @@ const AppPage = () => {
                   </p>
                   {app.status === 'Ready' && app.url ? (
                     <div className="space-y-2">
-                      <a
-                        href={app.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <Link
+                        to={`/app/${app.name.toLowerCase().replace(/\s+/g, '-')}`}
                         className="block w-full text-center bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg font-medium transition-colors"
                       >
-                        View App
-                      </a>
-                      <button className="w-full text-gray-600 hover:text-gray-900 py-2 text-sm">
-                        Edit App
-                      </button>
+                        Enter Workspace
+                      </Link>
                     </div>
                   ) : (
                     <div className="flex items-center justify-center py-2">

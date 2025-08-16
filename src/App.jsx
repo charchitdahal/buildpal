@@ -3,6 +3,7 @@ import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import EnvironmentBanner from './components/EnvironmentBanner'
 import ProtectedRoute from './components/ProtectedRoute'
 import { AuthProvider } from './contexts/AuthContext'
+import AppBuilderPage from './pages/AppBuilderPage'
 import AppPage from './pages/AppPage'
 import EnterprisePage from './pages/EnterprisePage'
 import LoginPage from './pages/LoginPage'
@@ -324,6 +325,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <AppPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/app/:appName"
+              element={
+                <ProtectedRoute>
+                  <AppBuilderPage />
                 </ProtectedRoute>
               }
             />
