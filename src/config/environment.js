@@ -12,10 +12,10 @@ const getEnvironment = () => {
 
     // Fallback for SSR or build time
     if (isProd) {
-      return import.meta.env.VITE_PROD_URL || 'https://buildpal.vercel.app'
+      return import.meta.env.VITE_PROD_URL || 'https://buildpal.net'
     }
 
-    return 'http://localhost:5173'
+    return 'http://localhost:3000'
   }
 
   return {
