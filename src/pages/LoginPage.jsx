@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import config from '../config/environment.js'
 import { useAuth } from '../contexts/AuthContext'
 
 const LoginPage = () => {
@@ -15,7 +16,8 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (user) {
-      navigate('/app')
+      // Use environment-aware routing
+      navigate(config.routes.afterLogin)
     }
   }, [user, navigate])
 
@@ -39,7 +41,8 @@ const LoginPage = () => {
         if (authMode === 'signup') {
           setMessage('Check your email for verification link!')
         } else {
-          navigate('/app')
+          // Successful login - navigate to app
+          navigate(config.routes.afterLogin)
         }
       }
     } catch (err) {

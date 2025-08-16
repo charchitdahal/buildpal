@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import EnvironmentBanner from './components/EnvironmentBanner'
 import ProtectedRoute from './components/ProtectedRoute'
 import { AuthProvider } from './contexts/AuthContext'
 import AppPage from './pages/AppPage'
@@ -8,6 +9,10 @@ import LoginPage from './pages/LoginPage'
 import PricingPage from './pages/PricingPage'
 import ProductPage from './pages/ProductPage'
 import ResourcesPage from './pages/ResourcesPage'
+import { logEnvironmentInfo } from './utils/navigation.js'
+
+// Log environment info in development
+logEnvironmentInfo()
 
 // Icons
 const ChevronDownIcon = () => (
@@ -306,6 +311,7 @@ function App() {
     <AuthProvider>
       <Router>
         <div className="App">
+          <EnvironmentBanner />
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/product" element={<ProductPage />} />

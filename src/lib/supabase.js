@@ -1,6 +1,16 @@
 import { createClient } from '@supabase/supabase-js'
+import config from '../config/environment.js'
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+export const supabase = createClient(
+  config.supabase.url,
+  config.supabase.anonKey,
+  {
+    auth: {
+      autoRefreshToken: true,
+      persistSession: true,
+      detectSessionInUrl: true,
+      // Use environment-aware redirect URL
+      redirectTo: config.supabase.redirectTo,
+    }
+  }
+)
