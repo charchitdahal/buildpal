@@ -63,7 +63,7 @@ const Navigation = () => {
               <span className="text-white font-bold text-sm">B</span>
             </div>
             <h1 className="text-lg font-semibold text-gray-900">
-              Base44
+              Build Pal
             </h1>
           </div>
           <div className="flex items-center space-x-8">
@@ -84,7 +84,7 @@ const Navigation = () => {
   )
 }
 
-// Hero Section Component matching Base44 design
+// Hero Section Component matching Build Pal design
 const HeroSection = () => {
   const [inputValue, setInputValue] = useState('')
 

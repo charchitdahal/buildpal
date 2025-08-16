@@ -84,7 +84,7 @@ const Navigation = () => {
   )
 }
 
-// Hero Section Component matching Base44 design
+// Hero Section Component matching Build Pal design
 const HeroSection = () => {
   const [inputValue, setInputValue] = useState('')
 

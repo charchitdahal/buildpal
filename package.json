@@ -2,7 +2,7 @@
   "name": "buildpal-landing",
   "version": "1.0.0",
   "type": "module",
-  "description": "SaaS landing page inspired by base44.com",
+  "description": "SaaS landing page inspired by Build Pal.com",
   "main": "src/App.jsx",
   "scripts": {
     "dev": "vite",

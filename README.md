@@ -1,6 +1,6 @@
-# Base44 - Build Apps Without Code
+# Build Pal - Build Apps Without Code
 
-A modern SaaS landing page inspired by Base44.com, built with React and TailwindCSS.
+A modern SaaS landing page inspired by Build Pal.com, built with React and TailwindCSS.
 
 ## 🚀 Features
 
