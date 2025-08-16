@@ -136,3 +136,4 @@ This project is licensed under the MIT License.
 - Built with modern React and TailwindCSS best practices
 - Inspired by ChatGPT's clean interface design
 - Icons from Heroicons
+# buildpal
