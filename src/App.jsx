@@ -3,7 +3,11 @@ import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import ProtectedRoute from './components/ProtectedRoute'
 import { AuthProvider } from './contexts/AuthContext'
 import AppPage from './pages/AppPage'
+import EnterprisePage from './pages/EnterprisePage'
 import LoginPage from './pages/LoginPage'
+import PricingPage from './pages/PricingPage'
+import ProductPage from './pages/ProductPage'
+import ResourcesPage from './pages/ResourcesPage'
 
 // Icons
 const ChevronDownIcon = () => (
@@ -72,19 +76,13 @@ const Navigation = () => {
             </h1>
           </Link>
           <div className="flex items-center space-x-8">
-            <a href="#" className="text-gray-600 hover:text-gray-900 font-normal text-sm">Product</a>
-            <a href="#" className="text-gray-600 hover:text-gray-900 font-normal text-sm">Resources</a>
-            <a href="#" className="text-gray-600 hover:text-gray-900 font-normal text-sm">Pricing</a>
-            <a href="#" className="text-gray-600 hover:text-gray-900 font-normal text-sm">Enterprise</a>
+            <Link to="/product" className="text-gray-600 hover:text-gray-900 font-normal text-sm">Product</Link>
+            <Link to="/resources" className="text-gray-600 hover:text-gray-900 font-normal text-sm">Resources</Link>
+            <Link to="/pricing" className="text-gray-600 hover:text-gray-900 font-normal text-sm">Pricing</Link>
+            <Link to="/enterprise" className="text-gray-600 hover:text-gray-900 font-normal text-sm">Enterprise</Link>
             <div className="text-gray-600">
               <GlobeIcon />
             </div>
-            <Link
-              to="/login"
-              className="text-gray-600 hover:text-gray-900 font-normal text-sm"
-            >
-              Sign In
-            </Link>
             <Link
               to="/login"
               className="bg-green-400 hover:bg-green-500 text-gray-900 px-5 py-2 rounded-full font-medium text-sm transition-colors"
@@ -96,9 +94,7 @@ const Navigation = () => {
       </div>
     </nav>
   )
-}
-
-// Hero Section Component matching Build Pal design
+}// Hero Section Component matching Build Pal design
 const HeroSection = () => {
   const [inputValue, setInputValue] = useState('')
 
@@ -143,12 +139,12 @@ const HeroSection = () => {
                   placeholder="What do you want to build?"
                   className="w-full px-6 py-4 text-lg rounded-2xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent bg-white"
                 />
-                <button
-                  type="submit"
+                <Link
+                  to="/login"
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 bg-orange-500 hover:bg-orange-600 text-white p-3 rounded-xl transition-colors"
                 >
                   <ArrowUpIcon />
-                </button>
+                </Link>
               </div>
             </form>
 
@@ -267,19 +263,19 @@ const Footer = () => {
             <div>
               <h4 className="text-lg font-semibold mb-4">Product</h4>
               <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Templates</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Features</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Pricing</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Enterprise</a></li>
+                <li><Link to="/product" className="text-gray-400 hover:text-white transition-colors">Templates</Link></li>
+                <li><Link to="/product" className="text-gray-400 hover:text-white transition-colors">Features</Link></li>
+                <li><Link to="/pricing" className="text-gray-400 hover:text-white transition-colors">Pricing</Link></li>
+                <li><Link to="/enterprise" className="text-gray-400 hover:text-white transition-colors">Enterprise</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="text-lg font-semibold mb-4">Support</h4>
               <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Help Center</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Community</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Contact</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Status</a></li>
+                <li><Link to="/resources" className="text-gray-400 hover:text-white transition-colors">Help Center</Link></li>
+                <li><Link to="/resources" className="text-gray-400 hover:text-white transition-colors">Community</Link></li>
+                <li><Link to="/resources" className="text-gray-400 hover:text-white transition-colors">Contact</Link></li>
+                <li><Link to="/resources" className="text-gray-400 hover:text-white transition-colors">Status</Link></li>
               </ul>
             </div>
           </div>
@@ -312,6 +308,10 @@ function App() {
         <div className="App">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/product" element={<ProductPage />} />
+            <Route path="/pricing" element={<PricingPage />} />
+            <Route path="/resources" element={<ResourcesPage />} />
+            <Route path="/enterprise" element={<EnterprisePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route
               path="/app"
@@ -326,6 +326,4 @@ function App() {
       </Router>
     </AuthProvider>
   )
-}
-
-export default App
+} export default App
