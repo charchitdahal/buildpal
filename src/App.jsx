@@ -240,7 +240,7 @@ const Footer = () => {
                 <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center mr-3">
                   <span className="text-white font-bold text-sm">B</span>
                 </div>
-                <h3 className="text-xl font-semibold">Base 44</h3>
+                <h3 className="text-xl font-semibold">Build Pal</h3>
               </div>
               <p className="text-gray-400">
                 Build functional apps in minutes with just your words.
@@ -267,7 +267,7 @@ const Footer = () => {
           </div>
 
           <div className="border-t border-gray-800 mt-12 pt-8 text-center">
-            <p className="text-gray-400">&copy; 2025 Base 44. All rights reserved.</p>
+            <p className="text-gray-400">&copy; 2025 Build Pal. All rights reserved.</p>
           </div>
         </div>
       </div>
