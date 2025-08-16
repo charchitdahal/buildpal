@@ -9,6 +9,7 @@ import EnterprisePage from './pages/EnterprisePage'
 import LoginPage from './pages/LoginPage'
 import PricingPage from './pages/PricingPage'
 import ProductPage from './pages/ProductPage'
+import PublishedAppPage from './pages/PublishedAppPage'
 import ResourcesPage from './pages/ResourcesPage'
 import { logEnvironmentInfo } from './utils/navigation.js'
 
@@ -336,6 +337,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route path="/:appName" element={<PublishedAppPage />} />
           </Routes>
         </div>
       </Router>

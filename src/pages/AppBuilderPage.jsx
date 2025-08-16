@@ -3,38 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 
 // Icons
-const ChevronRightIcon = () => (
-  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-    <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-  </svg>
-)
-
-const ChevronDownIcon = () => (
-  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-    <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-  </svg>
-)
-
-const FolderIcon = () => (
-  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-    <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" />
-  </svg>
-)
-
-const ComponentIcon = () => (
-  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-    <path fillRule="evenodd" d="M3 4a1 1 0 011-1h4a1 1 0 010 2H6.414l2.293 2.293a1 1 0 01-1.414 1.414L5 6.414V8a1 1 0 01-2 0V4zm9 1a1 1 0 010-2h4a1 1 0 011 1v4a1 1 0 01-2 0V6.414l-2.293 2.293a1 1 0 11-1.414-1.414L13.586 5H12zm-9 7a1 1 0 012 0v1.586l2.293-2.293a1 1 0 111.414 1.414L6.414 15H8a1 1 0 010 2H4a1 1 0 01-1-1v-4zm13-1a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 010-2h1.586l-2.293-2.293a1 1 0 111.414-1.414L15 13.586V12a1 1 0 011-1z" clipRule="evenodd" />
-  </svg>
-)
-
-const DatabaseIcon = () => (
-  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-    <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
-    <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" />
-    <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z" />
-  </svg>
-)
-
 const DesktopIcon = () => (
   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
     <path fillRule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z" clipRule="evenodd" />
@@ -47,95 +15,51 @@ const MobileIcon = () => (
   </svg>
 )
 
-const EyeIcon = () => (
-  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-    <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
+const SendIcon = () => (
+  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+    <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
   </svg>
 )
 
-// Tree Item Component
-const TreeItem = ({ icon: Icon, label, children, isExpanded, onToggle, isSelected, onSelect, level = 0 }) => {
-  return (
-    <div className="select-none">
-      <div
-        className={`flex items-center px-2 py-1 hover:bg-gray-100 cursor-pointer rounded text-sm ${isSelected ? 'bg-indigo-50 text-indigo-700' : 'text-gray-700'
-          }`}
-        style={{ paddingLeft: `${level * 16 + 8}px` }}
-        onClick={onSelect}
-      >
-        {children && (
-          <button onClick={(e) => { e.stopPropagation(); onToggle(); }} className="mr-1">
-            {isExpanded ? <ChevronDownIcon /> : <ChevronRightIcon />}
-          </button>
-        )}
-        <Icon />
-        <span className="ml-2 font-medium">{label}</span>
-      </div>
-      {children && isExpanded && (
-        <div>
-          {children.map((child, index) => (
-            <TreeItem key={index} {...child} level={level + 1} />
-          ))}
-        </div>
-      )}
-    </div>
-  )
-}
+const UserIcon = () => (
+  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+    <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+  </svg>
+)
 
-// Mock data for app structure
-const getAppStructure = (appName) => ({
-  pages: {
-    label: 'Pages',
-    icon: FolderIcon,
-    isExpanded: true,
-    children: [
-      { label: 'Home', icon: ComponentIcon, isSelected: true },
-      { label: 'Dashboard', icon: ComponentIcon },
-      { label: 'Settings', icon: ComponentIcon },
-    ]
-  },
-  components: {
-    label: 'Components',
-    icon: ComponentIcon,
-    isExpanded: false,
-    children: [
-      { label: 'Header', icon: ComponentIcon },
-      { label: 'Sidebar', icon: ComponentIcon },
-      { label: 'Chart', icon: ComponentIcon },
-      { label: 'Table', icon: ComponentIcon },
-    ]
-  },
-  data: {
-    label: 'Data Sources',
-    icon: DatabaseIcon,
-    isExpanded: false,
-    children: [
-      { label: 'Users', icon: DatabaseIcon },
-      { label: 'Analytics', icon: DatabaseIcon },
-      { label: 'API Endpoints', icon: DatabaseIcon },
-    ]
-  }
-})
+const BotIcon = () => (
+  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+    <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+  </svg>
+)
 
 const AppBuilderPage = () => {
   const { appName } = useParams()
   const navigate = useNavigate()
   const { user } = useAuth()
 
-  const [activeTab, setActiveTab] = useState('pages')
   const [previewMode, setPreviewMode] = useState('desktop')
-  const [inspectMode, setInspectMode] = useState(false)
-  const [appStructure, setAppStructure] = useState(getAppStructure(appName))
   const [selectedItem, setSelectedItem] = useState('Home')
-  const [prompt, setPrompt] = useState('Create a modern dashboard with charts and tables')
+  const [isPublished, setIsPublished] = useState(false)
+  const [isPublishing, setIsPublishing] = useState(false)
+  const [chatMessages, setChatMessages] = useState([
+    {
+      id: 1,
+      type: 'bot',
+      message: `Welcome to your ${appName} workspace! I'm here to help you build and modify your app. What would you like to work on?`,
+      timestamp: new Date().toLocaleTimeString()
+    }
+  ])
+  const [currentMessage, setCurrentMessage] = useState('')
+  const [isTyping, setIsTyping] = useState(false)
 
   // Mock app data
   const appData = {
     name: appName,
     description: 'A modern reporting dashboard with analytics and user management',
     lastModified: '2 minutes ago',
-    status: 'Draft'
+    status: isPublished ? 'Published' : 'Draft',
+    publishedUrl: isPublished ? `/${appName}` : null
   }
 
   useEffect(() => {
@@ -144,18 +68,78 @@ const AppBuilderPage = () => {
     }
   }, [user, navigate])
 
-  const handleTreeItemToggle = (section, itemPath = null) => {
-    setAppStructure(prev => ({
-      ...prev,
-      [section]: {
-        ...prev[section],
-        isExpanded: !prev[section].isExpanded
+  const handleSendMessage = (e) => {
+    e.preventDefault()
+    if (!currentMessage.trim()) return
+
+    // Add user message
+    const userMessage = {
+      id: Date.now(),
+      type: 'user',
+      message: currentMessage,
+      timestamp: new Date().toLocaleTimeString()
+    }
+
+    setChatMessages(prev => [...prev, userMessage])
+    setCurrentMessage('')
+    setIsTyping(true)
+
+    // Simulate bot response
+    setTimeout(() => {
+      const botResponse = {
+        id: Date.now() + 1,
+        type: 'bot',
+        message: generateBotResponse(currentMessage),
+        timestamp: new Date().toLocaleTimeString()
       }
-    }))
+      setChatMessages(prev => [...prev, botResponse])
+      setIsTyping(false)
+    }, 1500)
   }
 
-  const handleTreeItemSelect = (item) => {
-    setSelectedItem(item)
+  const generateBotResponse = (userMessage) => {
+    const responses = [
+      "I'll help you add that component to your app. Let me update the preview for you.",
+      "Great idea! I'm updating your app structure to include those changes.",
+      "I've made those modifications. You can see the changes in the live preview.",
+      "Perfect! I've added that feature to your app. Check out the updated preview.",
+      "Done! Your app has been updated with the new functionality you requested."
+    ]
+    return responses[Math.floor(Math.random() * responses.length)]
+  }
+
+  const handlePublish = async () => {
+    setIsPublishing(true)
+
+    try {
+      // Simulate publishing process
+      await new Promise(resolve => setTimeout(resolve, 2000))
+
+      setIsPublished(true)
+
+      // Add success message to chat
+      const publishMessage = {
+        id: Date.now(),
+        type: 'bot',
+        message: `🎉 Your app "${appName}" has been successfully published! It's now live at ${window.location.origin}/${appName}`,
+        timestamp: new Date().toLocaleTimeString()
+      }
+      setChatMessages(prev => [...prev, publishMessage])
+
+    } catch (error) {
+      console.error('Publish failed:', error)
+
+      // Add error message to chat
+      const errorMessage = {
+        id: Date.now(),
+        type: 'bot',
+        message: `❌ Failed to publish "${appName}". Please try again.`,
+        timestamp: new Date().toLocaleTimeString()
+      }
+      setChatMessages(prev => [...prev, errorMessage])
+    } finally {
+      setIsPublishing(false)
+    }
   }
 
   const renderPreview = () => {
@@ -240,13 +224,6 @@ const AppBuilderPage = () => {
             )}
           </div>
         </div>
-
-        {/* Inspect Mode Overlay */}
-        {inspectMode && (
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-20 left-6 right-6 h-16 border-2 border-indigo-400 bg-indigo-100 bg-opacity-20 rounded"></div>
-          </div>
-        )}
       </div>
     )
   }
@@ -273,147 +250,135 @@ const AppBuilderPage = () => {
         </div>
 
         <div className="flex items-center space-x-4">
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${isPublished
+              ? 'bg-green-100 text-green-800'
+              : 'bg-yellow-100 text-yellow-800'
+            }`}>
             {appData.status}
           </span>
-          <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors">
-            Publish
+
+          {isPublished && (
+            <a
+              href={`/${appName}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-indigo-600 hover:text-indigo-700 text-sm font-medium flex items-center space-x-1"
+            >
+              <span>View Live App</span>
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            </a>
+          )}
+
+          <button
+            onClick={handlePublish}
+            disabled={isPublishing}
+            className={`px-4 py-2 rounded-lg font-medium transition-colors ${isPublishing
+                ? 'bg-gray-400 text-white cursor-not-allowed'
+                : isPublished
+                  ? 'bg-green-600 hover:bg-green-700 text-white'
+                  : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+              }`}
+          >
+            {isPublishing ? 'Publishing...' : isPublished ? 'Republish' : 'Publish'}
           </button>
         </div>
       </header>
 
       {/* Main Content */}
       <div className="flex-1 flex">
-        {/* Left Panel - Builder */}
+        {/* Left Panel - Chat Interface */}
         <div className="w-2/5 bg-white border-r border-gray-200 flex flex-col">
-          {/* Tabs */}
-          <div className="flex border-b border-gray-200">
-            {['pages', 'logic', 'data'].map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`flex-1 px-4 py-3 text-sm font-medium capitalize ${activeTab === tab
-                    ? 'border-b-2 border-indigo-500 text-indigo-600'
-                    : 'text-gray-600 hover:text-gray-900'
-                  }`}
-              >
-                {tab}
-              </button>
-            ))}
+          {/* Chat Header */}
+          <div className="border-b border-gray-200 p-4">
+            <h3 className="text-lg font-semibold text-gray-900">AI Assistant</h3>
+            <p className="text-sm text-gray-600">Chat with AI to build and modify your app</p>
           </div>
 
-          {/* Tab Content */}
-          <div className="flex-1 flex flex-col">
-            {activeTab === 'pages' && (
-              <>
-                {/* App Outline */}
-                <div className="border-b border-gray-200 p-4">
-                  <h3 className="text-sm font-semibold text-gray-900 mb-3">App Structure</h3>
-                  <div className="space-y-1">
-                    <TreeItem
-                      {...appStructure.pages}
-                      onToggle={() => handleTreeItemToggle('pages')}
-                      onSelect={() => handleTreeItemSelect('Pages')}
-                    />
-                    <TreeItem
-                      {...appStructure.components}
-                      onToggle={() => handleTreeItemToggle('components')}
-                      onSelect={() => handleTreeItemSelect('Components')}
-                    />
-                    <TreeItem
-                      {...appStructure.data}
-                      onToggle={() => handleTreeItemToggle('data')}
-                      onSelect={() => handleTreeItemSelect('Data')}
-                    />
+          {/* Chat Messages */}
+          <div className="flex-1 flex flex-col overflow-hidden">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+              {chatMessages.map((message) => (
+                <div key={message.id} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+                  <div className={`flex max-w-[80%] ${message.type === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
+                    {/* Avatar */}
+                    <div className={`flex-shrink-0 ${message.type === 'user' ? 'ml-3' : 'mr-3'}`}>
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center ${message.type === 'user' ? 'bg-indigo-500 text-white' : 'bg-gray-200 text-gray-600'
+                        }`}>
+                        {message.type === 'user' ? <UserIcon className="w-4 h-4" /> : <BotIcon className="w-4 h-4" />}
+                      </div>
+                    </div>
+
+                    {/* Message */}
+                    <div className={`px-4 py-2 rounded-2xl ${message.type === 'user'
+                        ? 'bg-indigo-500 text-white'
+                        : 'bg-gray-100 text-gray-900'
+                      }`}>
+                      <p className="text-sm">{message.message}</p>
+                      <p className={`text-xs mt-1 ${message.type === 'user' ? 'text-indigo-200' : 'text-gray-500'
+                        }`}>
+                        {message.timestamp}
+                      </p>
+                    </div>
                   </div>
                 </div>
+              ))}
 
-                {/* Prompt Editor */}
-                <div className="flex-1 p-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-sm font-semibold text-gray-900">Edit with AI</h3>
-                    <button className="text-xs text-indigo-600 hover:text-indigo-700">
-                      Examples
+              {/* Typing Indicator */}
+              {isTyping && (
+                <div className="flex justify-start">
+                  <div className="flex mr-3">
+                    <div className="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center">
+                      <BotIcon className="w-4 h-4" />
+                    </div>
+                  </div>
+                  <div className="bg-gray-100 text-gray-900 px-4 py-2 rounded-2xl">
+                    <div className="flex space-x-1">
+                      <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></div>
+                      <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                      <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Chat Input */}
+            <div className="border-t border-gray-200 p-4">
+              <form onSubmit={handleSendMessage} className="flex space-x-2">
+                <input
+                  type="text"
+                  value={currentMessage}
+                  onChange={(e) => setCurrentMessage(e.target.value)}
+                  placeholder="Ask me to modify your app..."
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm"
+                />
+                <button
+                  type="submit"
+                  disabled={!currentMessage.trim() || isTyping}
+                  className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  <SendIcon />
+                </button>
+              </form>
+
+              {/* Quick Suggestions */}
+              <div className="mt-3">
+                <p className="text-xs text-gray-500 mb-2">Quick suggestions:</p>
+                <div className="flex flex-wrap gap-2">
+                  {['Add a chart', 'Create new page', 'Change colors', 'Add user login'].map((suggestion, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentMessage(suggestion)}
+                      className="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full text-xs transition-colors"
+                    >
+                      {suggestion}
                     </button>
-                  </div>
-
-                  <textarea
-                    value={prompt}
-                    onChange={(e) => setPrompt(e.target.value)}
-                    placeholder="Describe what you want to build or modify..."
-                    className="w-full h-32 p-3 border border-gray-300 rounded-lg resize-none text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                  />
-
-                  <button className="w-full mt-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-2 px-4 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 text-sm font-medium">
-                    Apply Changes
-                  </button>
-
-                  {/* Quick Actions */}
-                  <div className="mt-4 space-y-2">
-                    <h4 className="text-xs font-semibold text-gray-700 uppercase tracking-wide">Quick Actions</h4>
-                    <div className="grid grid-cols-2 gap-2">
-                      <button className="text-xs py-2 px-3 bg-gray-100 hover:bg-gray-200 rounded text-gray-700">
-                        Add Page
-                      </button>
-                      <button className="text-xs py-2 px-3 bg-gray-100 hover:bg-gray-200 rounded text-gray-700">
-                        Add Chart
-                      </button>
-                      <button className="text-xs py-2 px-3 bg-gray-100 hover:bg-gray-200 rounded text-gray-700">
-                        Add Table
-                      </button>
-                      <button className="text-xs py-2 px-3 bg-gray-100 hover:bg-gray-200 rounded text-gray-700">
-                        Add Form
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
-
-            {activeTab === 'logic' && (
-              <div className="p-4">
-                <h3 className="text-sm font-semibold text-gray-900 mb-3">Business Logic</h3>
-                <div className="space-y-3">
-                  <div className="p-3 bg-gray-50 rounded-lg">
-                    <h4 className="text-sm font-medium text-gray-900">User Authentication</h4>
-                    <p className="text-xs text-gray-600 mt-1">Handle login/logout flows</p>
-                  </div>
-                  <div className="p-3 bg-gray-50 rounded-lg">
-                    <h4 className="text-sm font-medium text-gray-900">Data Validation</h4>
-                    <p className="text-xs text-gray-600 mt-1">Form validation rules</p>
-                  </div>
-                  <div className="p-3 bg-gray-50 rounded-lg">
-                    <h4 className="text-sm font-medium text-gray-900">API Integrations</h4>
-                    <p className="text-xs text-gray-600 mt-1">External service connections</p>
-                  </div>
+                  ))}
                 </div>
               </div>
-            )}
-
-            {activeTab === 'data' && (
-              <div className="p-4">
-                <h3 className="text-sm font-semibold text-gray-900 mb-3">Data Sources</h3>
-                <div className="space-y-3">
-                  <div className="p-3 bg-gray-50 rounded-lg flex items-center justify-between">
-                    <div>
-                      <h4 className="text-sm font-medium text-gray-900">Users Database</h4>
-                      <p className="text-xs text-gray-600">PostgreSQL • 12,543 records</p>
-                    </div>
-                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  </div>
-                  <div className="p-3 bg-gray-50 rounded-lg flex items-center justify-between">
-                    <div>
-                      <h4 className="text-sm font-medium text-gray-900">Analytics API</h4>
-                      <p className="text-xs text-gray-600">REST API • Connected</p>
-                    </div>
-                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  </div>
-                  <button className="w-full p-3 border-2 border-dashed border-gray-300 rounded-lg text-sm text-gray-600 hover:border-indigo-300 hover:text-indigo-600">
-                    + Add Data Source
-                  </button>
-                </div>
-              </div>
-            )}
+            </div>
           </div>
         </div>
 
@@ -442,14 +407,6 @@ const AppBuilderPage = () => {
             </div>
 
             <div className="flex items-center space-x-2">
-              <button
-                onClick={() => setInspectMode(!inspectMode)}
-                className={`flex items-center space-x-2 px-3 py-1.5 rounded text-sm ${inspectMode ? 'bg-indigo-100 text-indigo-600' : 'text-gray-600 hover:text-gray-900'
-                  }`}
-              >
-                <EyeIcon />
-                <span>Inspect</span>
-              </button>
               <button className="text-gray-600 hover:text-gray-900 text-sm">
                 Refresh
               </button>
