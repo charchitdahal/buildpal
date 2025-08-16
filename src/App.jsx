@@ -1,4 +1,9 @@
 import { useState } from 'react'
+import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import ProtectedRoute from './components/ProtectedRoute'
+import { AuthProvider } from './contexts/AuthContext'
+import AppPage from './pages/AppPage'
+import LoginPage from './pages/LoginPage'
 
 // Icons
 const ChevronDownIcon = () => (
@@ -58,14 +63,14 @@ const Navigation = () => {
     <nav className="absolute top-0 left-0 right-0 z-10 bg-white border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-3">
-          <div className="flex items-center">
+          <Link to="/" className="flex items-center">
             <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center mr-3">
               <span className="text-white font-bold text-sm">B</span>
             </div>
             <h1 className="text-lg font-semibold text-gray-900">
               Build Pal
             </h1>
-          </div>
+          </Link>
           <div className="flex items-center space-x-8">
             <a href="#" className="text-gray-600 hover:text-gray-900 font-normal text-sm">Product</a>
             <a href="#" className="text-gray-600 hover:text-gray-900 font-normal text-sm">Resources</a>
@@ -74,9 +79,18 @@ const Navigation = () => {
             <div className="text-gray-600">
               <GlobeIcon />
             </div>
-            <button className="bg-green-400 hover:bg-green-500 text-gray-900 px-5 py-2 rounded-full font-medium text-sm transition-colors">
+            <Link
+              to="/login"
+              className="text-gray-600 hover:text-gray-900 font-normal text-sm"
+            >
+              Sign In
+            </Link>
+            <Link
+              to="/login"
+              className="bg-green-400 hover:bg-green-500 text-gray-900 px-5 py-2 rounded-full font-medium text-sm transition-colors"
+            >
               Start Building
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -91,8 +105,9 @@ const HeroSection = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (inputValue.trim()) {
-      console.log('Building:', inputValue)
-      // Here you would handle the app building logic
+      // Store the idea in session storage and redirect to login
+      sessionStorage.setItem('buildIdea', inputValue)
+      window.location.href = '/login'
     }
   }
 
@@ -228,9 +243,12 @@ const Footer = () => {
           <p className="text-xl text-gray-300 mb-8">
             Join thousands of creators who are building without code
           </p>
-          <button className="bg-green-400 hover:bg-green-500 text-gray-900 px-8 py-4 rounded-full text-lg font-semibold transition-colors shadow-lg">
+          <Link
+            to="/login"
+            className="bg-green-400 hover:bg-green-500 text-gray-900 px-8 py-4 rounded-full text-lg font-semibold transition-colors shadow-lg"
+          >
             Start Building Free
-          </button>
+          </Link>
         </div>
 
         <div className="border-t border-gray-800 pt-12">
@@ -275,14 +293,38 @@ const Footer = () => {
   )
 }
 
-// Main App Component
-function App() {
+// Home Page Component
+const HomePage = () => {
   return (
-    <div className="App">
+    <>
       <HeroSection />
       <FAQ />
       <Footer />
-    </div>
+    </>
+  )
+}
+
+// Main App Component with Router
+function App() {
+  return (
+    <AuthProvider>
+      <Router>
+        <div className="App">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route
+              path="/app"
+              element={
+                <ProtectedRoute>
+                  <AppPage />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </div>
+      </Router>
+    </AuthProvider>
   )
 }
 
